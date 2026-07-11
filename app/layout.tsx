@@ -11,7 +11,6 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://localhost:3000"),
   title: "WebDev Shop | Next JS",
   description: "WebDev warriros shop using Next JS",
   openGraph: {
