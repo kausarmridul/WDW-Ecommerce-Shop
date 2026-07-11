@@ -1,28 +1,36 @@
-export async function getAllCategory() {
-  const categoryRes = await fetch(
-    "https://fakestoreapi.com/products/categories",
-  );
+const BASE_URL = "https://fakestoreapi.com";
 
-  return categoryRes.json();
+async function fetchData(endpoint) {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+  }
+
+  const contentType = res.headers.get("content-type");
+
+  if (!contentType || !contentType.includes("application/json")) {
+    const text = await res.text();
+    throw new Error(`Expected JSON but received:\n${text.slice(0, 200)}`);
+  }
+
+  return res.json();
+}
+
+export async function getAllCategory() {
+  return fetchData("/products/categories");
 }
 
 export async function getAllProducts() {
-  const productRes = await fetch("https://fakestoreapi.com/products");
-
-  return productRes.json();
+  return fetchData("/products");
 }
 
 export async function getSingleProduct(id) {
-  const singleProductRes = await fetch(
-    `https://fakestoreapi.com/products/${id}`,
-  );
-  return singleProductRes.json();
+  return fetchData(`/products/${id}`);
 }
 
 export async function getProductByCategory(category) {
-  const productByCategoryRes = await fetch(
-    `https://fakestoreapi.com/products/category/${category}`,
-  );
-
-  return productByCategoryRes.json();
+  return fetchData(`/products/category/${encodeURIComponent(category)}`);
 }
