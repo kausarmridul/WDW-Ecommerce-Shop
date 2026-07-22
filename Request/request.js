@@ -2,8 +2,12 @@ const BASE_URL = "https://fakestoreapi.com";
 
 async function fetchData(endpoint) {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
+    cache: "force-cache",
     next: {
       revalidate: 30,
+    },
+    headers: {
+      Accept: "application/json",
     },
   });
 
