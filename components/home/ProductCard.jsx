@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
         {product.category}
       </p>
       {/* Title */}
-      <Link href={`/product/product-details/${product.id}`}>
+      <Link href={`#`}>
         <h1 className="text-lg hover:text-blue-900 transition-all hover:underline sm:w-full sm:truncate mt-2 text-black font-semibold">
           {product.title}
         </h1>
